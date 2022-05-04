@@ -124,11 +124,10 @@ namespace ToDoLy
 
         public static void editTask(List<Task> list)
         {
-            int i = 0;
-            Console.WriteLine("\n\tSelect the task nr you want to update, mark as finished or delete");
+            Console.WriteLine("\n\tSelect the task you want to update, mark as finished or delete");
 
 
-            string outPut = "\tDate".PadRight(30) + "Project".PadRight(30) + "Text".PadRight(10);
+            string outPut = "\tProject".PadRight(30) + "Date".PadRight(30) + "Text".PadRight(10);
 
             Console.WriteLine("\t______________________________________________________________________________");
             Console.WriteLine(outPut);
@@ -136,14 +135,19 @@ namespace ToDoLy
 
             foreach (Task task in list ) 
             {
-                Console.WriteLine( " Nr: " + i + "\t" + task.ToString() );
-                i++;
+                Console.WriteLine( "\t" + task.ToString() );
             }
 
             Console.WriteLine("\t______________________________________________________________________________\n");
 
-            Console.Write("\tSelect: ");
-            string text = Console.ReadLine();
+            Console.Write("\tProject: ");
+            string input = Console.ReadLine();
+
+            //Retrieve the first object that matches the input
+            List<Task> matches = list.Where(task => task.projectTitle == input).ToList<Task>();
+            Task firstMatche = matches.First<Task>();
+
+            Console.WriteLine("Test: " + matches.First<Task>()) ;
 
             Console.Write("\n");
         }
@@ -170,7 +174,7 @@ namespace ToDoLy
         {
             string timeStart = (this.timeStart).ToString("yyyy/MM/dd");
 
-            string outPut = timeStart.PadRight(30) + (this.projectTitle).PadRight(30) +
+            string outPut = (this.projectTitle).PadRight(30) + timeStart.PadRight(30) +
                 (this.text).PadRight(10);
 
             return outPut;

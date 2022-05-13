@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace ToDoLy
 {
-    public class Task
+    public abstract class Task
     {
-        public int taskTitle
+        /// <summary>
+        /// Title
+        /// </summary>
+        public string TaskTitle
         {
             get => default;
             set
@@ -15,7 +15,10 @@ namespace ToDoLy
             }
         }
 
-        public int dueDate
+        /// <summary>
+        /// Date when the task expires
+        /// </summary>
+        public DateTime DueDate
         {
             get => default;
             set
@@ -23,15 +26,10 @@ namespace ToDoLy
             }
         }
 
-        public int status
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public int project
+        /// <summary>
+        /// Status can be active or inactive
+        /// </summary>
+        public bool Status
         {
             get => default;
             set

@@ -9,6 +9,11 @@ namespace ToDoLy
 
         internal void start()
         {
+            // Add task to the list.
+            list.Add(new ShoppingList("ICA Kvantum", "Mjölk, Smör, bröd.", "Inköp", DateTime.Parse("2022/01/2"), true) );
+            list.Add(new Exercise(false, true, 1000, "Motion", DateTime.Parse("2022/02/12"), true ) );
+            list.Add(new BusTicket(1199, "Malmö C", "Köp buss biljett", DateTime.Parse("2022/03/20"), true));
+
             Boolean run = true;
             int x = list.Count;
             int y = 0;
@@ -29,7 +34,7 @@ namespace ToDoLy
                 switch (value)
                 {
                     case 1:
-                        //showTaskList(list);
+                        showTaskList();
                         continue;
                     case 2:
                         //Task item = addNewTask();
@@ -63,7 +68,7 @@ namespace ToDoLy
 
         public void showTaskList()
         {
-            throw new System.NotImplementedException();
+            Console.WriteLine('\t' + "Test!" + '\n');
         }
     }
 }

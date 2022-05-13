@@ -1,36 +1,57 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ToDoLy.Task">
-    <Position X="5.75" Y="4.75" Width="1.5" />
+    <Position X="3.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAQAAAAAAAAAgAAAAAAAAAAAAAIAA=</HashCode>
       <FileName>Task.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ToDoLy.ConsoleView">
-    <Position X="5.75" Y="1.75" Width="1.5" />
+    <Position X="3.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAAAAAAAAACIAAAgAAAAAAAABAAAAAAAAQAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAgAAAACIAAAgAAAAAAAABAAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>ConsoleView.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ToDoLy.File">
-    <Position X="5.75" Y="7" Width="1.5" />
+    <Position X="5.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAgAAAAAAAAAA=</HashCode>
       <FileName>File.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ToDoLy.ToDoLy">
-    <Position X="3.25" Y="3.25" Width="1.5" />
+    <Position X="1.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAhAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>ToDoLy.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="ToDoLy.ShoppingList">
+    <Position X="5.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ShoppingList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ToDoLy.Exercise">
+    <Position X="3.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exercise.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ToDoLy.BusTicket">
+    <Position X="1.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BusTicket.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Interface Name="ToDoLy.IUser">
-    <Position X="8.5" Y="1.75" Width="1.5" />
+    <Position X="5.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAACIAAAAAAAAAAAABAAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>IUser.cs</FileName>

@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace ToDoLy
+﻿namespace ToDoLy
 {
     public interface IUser
     {
         void showTaskList();
-        void AddNewTask();
+        Task addNewTask();
         void editTask();
         void save();
     }

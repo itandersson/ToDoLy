@@ -18,9 +18,9 @@ namespace ToDoLy
         /// <param name="status">Status can be active or inactive</param>
         public Exercise(bool walk, bool run, int distance, string taskTitle, DateTime dueDate, bool status)
         {
-            this.Walk = walk;
-            this.Run = run;
-            this.Distance = distance;
+            Walk = walk;
+            Run = run;
+            Distance = distance;
             base.TaskTitle = taskTitle;
             base.DueDate = dueDate;
             base.Status = status;

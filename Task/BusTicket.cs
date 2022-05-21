@@ -3,28 +3,28 @@
 namespace ToDoLy
 {
     /// <summary>
-    /// Lists items to buy
+    /// Reminds the user to buy a bus ticket
     /// </summary>
-    public class ShoppingList : Task
+    public class BusTicket : Task
     {
         /// <summary>
-        /// Creates a shopping list
+        /// Creates a ToDoLy bus ticket
         /// </summary>
-        /// <param name="shopName">The name of the store</param>
-        /// <param name="list">Shopping list</param>
+        /// <param name="price">The price of the bus ticket</param>
+        /// <param name="area">Bus stop</param>
         /// <param name="taskTitle">Title</param>
         /// <param name="dueDate">Date when the task expires</param>
         /// <param name="status">Status can be active or inactive</param>
-        public ShoppingList(string shopName, string list, string taskTitle, DateTime dueDate, bool status)
+        public BusTicket(float price, string area, string taskTitle, DateTime dueDate, bool status)
         {
-            this.ShopName = shopName;
-            this.List = list;
+            Price = price;
+            Area = area;
             base.TaskTitle = taskTitle;
             base.DueDate = dueDate;
             base.Status = status;
         }
 
-        public string ShopName
+        public float Price
         {
             get => default;
             set
@@ -32,7 +32,7 @@ namespace ToDoLy
             }
         }
 
-        public string List
+        public string Area
         {
             get => default;
             set

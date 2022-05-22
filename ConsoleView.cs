@@ -47,6 +47,9 @@ namespace ToDoLy
                         //editTask(list);
                         continue;
                     case 4:
+                        FileHelper file = new FileHelper(@"C:/", "Files");
+                        file.toJsonFile(list);
+
                         run = false;
                         break;
                 }

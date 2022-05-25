@@ -45,7 +45,7 @@ namespace ToDoLy
                 //If the files already exist, delete them
                 if (File.Exists(filePath + "ShoppingList.json")) { File.Delete(filePath + "ShoppingList.json"); }
                 if (File.Exists(filePath + "Exercise.json")) { File.Delete(filePath + "Exercise.json"); }
-                if (File.Exists(filePath + "WeatherForecast.json")) { File.Delete(filePath + "WeatherForecast.json"); }
+                if (File.Exists(filePath + "BusTicket.json")) { File.Delete(filePath + "BusTicket.json"); }
 
                 foreach (Task task in list)
                 {
@@ -54,7 +54,7 @@ namespace ToDoLy
                     //If type is true, create json string 
                     if (task is ShoppingList) { jsonString = JsonSerializer.Serialize((ShoppingList)task); fileName = "ShoppingList.json"; }
                     else if (task is Exercise) { jsonString = JsonSerializer.Serialize((Exercise)task); fileName = "Exercise.json"; }
-                    else if (task is BusTicket) { jsonString = JsonSerializer.Serialize((BusTicket)task); fileName = "WeatherForecast.json"; }
+                    else if (task is BusTicket) { jsonString = JsonSerializer.Serialize((BusTicket)task); fileName = "BusTicket.json"; }
                     else { throw new Exception("An unexpected error occurred"); }
 
                     //Append to a new file and close

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ConsoleTableExt;
+using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace ToDoLy
@@ -7,12 +9,20 @@ namespace ToDoLy
     {
         static private List<Task> list = new List<Task>();
 
+        List<ShoppingList> tempShoppingList = new List<ShoppingList>();
+        List<Exercise> tempExerciseList = new List<Exercise>();
+        List<BusTicket> tempBusTicketList = new List<BusTicket>();
+
         internal void start()
         {
             // Add task to the list.
-            list.Add(new ShoppingList("ICA Kvantum", "Mjölk, Smör, bröd.", "Inköp", DateTime.Parse("2022/01/2"), true) );
-            list.Add(new Exercise(false, true, 1000, "Motion", DateTime.Parse("2022/02/12"), true ) );
+            list.Add(new ShoppingList("ICA Kvantum", "Mjölk, Smör, bröd.", "Inköp", DateTime.Parse("2022/04/2"), true) );
+            list.Add(new Exercise(false, true, 1000, "Motion", DateTime.Parse("2022/06/01"), true ) );
             list.Add(new BusTicket(1199, "Malmö C", "Köp buss biljett", DateTime.Parse("2022/03/20"), true));
+            list.Add(new ShoppingList("Supermarket", "Frukost.", "Inköp", DateTime.Parse("2022/08/2"), true));
+            list.Add(new ShoppingList("Coop", "Panta flaskor", "Panta", DateTime.Parse("2022/01/2"), true));
+            list.Add(new Exercise(false, true, 1000, "Motion", DateTime.Parse("2022/06/03"), true));
+            list.Add(new Exercise(false, true, 1000, "Motion", DateTime.Parse("2022/06/06"), true));
 
             Boolean run = true;
 
@@ -44,15 +54,92 @@ namespace ToDoLy
                         else { Console.WriteLine('\t' + "The task could not be added because an error occurred. Please try again" + '\n'); }
                         continue;
                     case 3:
-                        //editTask(list);
+                        //editTask();
                         continue;
                     case 4:
                         FileHelper file = new FileHelper(@"C:/", "Files");
                         file.toJsonFile(list);
-
                         run = false;
                         break;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Show Task List (by date or project)
+        /// </summary>
+        public void showTaskList()
+        {
+
+            string showList = '\t' + "Show Task List (by date or project)" + '\n' +
+                "\t(1) By date\n" +
+                "\t(2) By project\n";
+
+            Console.WriteLine(showList);
+            Console.Write("\tPick an option: ");
+            int value = int.Parse(Console.ReadLine());
+
+            switch (value)
+            {
+                case 1:
+                    sortByDate();
+                    break;
+                case 2:
+                    sortByProject();
+                    break;
+            }
+
+            //Print three tables
+            ConsoleTableBuilder
+                .From(tempShoppingList)
+                .WithTitle("Shopping list ")
+                .ExportAndWriteLine();
+
+            ConsoleTableBuilder
+                .From(tempExerciseList)
+                .WithTitle("Exercice ")
+                .ExportAndWriteLine();
+
+            ConsoleTableBuilder
+                .From(tempBusTicketList)
+                .WithTitle("Buy bus ticket ")
+                .ExportAndWriteLine();
+
+        }
+
+        /// <summary>
+        /// Sort a list by date
+        /// </summary>
+        private void sortByDate()
+        {
+            //Must run sort projects first
+            sortByProject();
+
+            //Sort the list by Date
+            tempShoppingList = tempShoppingList.OrderBy(x => x.DueDate).ToList();
+            tempExerciseList = tempExerciseList.OrderBy(x => x.DueDate).ToList();
+            tempBusTicketList = tempBusTicketList.OrderBy(x => x.DueDate).ToList();
+        }
+
+        /// <summary>
+        /// Sort a list by project
+        /// </summary>
+        /// <exception cref="Exception"></exception>
+        private void sortByProject()
+        {
+            //New empty lists
+            tempShoppingList = new List<ShoppingList>();
+            tempExerciseList = new List<Exercise>();
+            tempBusTicketList = new List<BusTicket>();
+
+            //Sort the list by Project
+            foreach (Task task in list)
+            {
+                //If type is true, add to List 
+                if (task is ShoppingList) { tempShoppingList.Add((ShoppingList)task); }
+                else if (task is Exercise) { tempExerciseList.Add((Exercise)task); }
+                else if (task is BusTicket) { tempBusTicketList.Add((BusTicket)task); }
+                else { throw new Exception("An unexpected error occurred"); }
             }
         }
 
@@ -65,8 +152,8 @@ namespace ToDoLy
             Task item = null;
             string newTask = '\t' + "What task do you want to create?" + '\n' +
                 "\t(1) Shopping list\n" +
-                "\t(2) Exercise round\n" +
-                "\t(3) Buy bus ticket\n";
+                "\t(2) Exercise list\n" +
+                "\t(3) Buy bus ticket list\n";
 
             Console.WriteLine(newTask);
             Console.Write("\tPick an option: ");
@@ -78,10 +165,10 @@ namespace ToDoLy
                     item = shoppingList();
                     break;
                 case 2:
-                    item = exercise();
+                    item = exerciseList();
                     break;
                 case 3:
-                    item = busTicket();
+                    item = busTicketList();
                     break;
             }
 
@@ -96,11 +183,6 @@ namespace ToDoLy
         public void save()
         {
             throw new System.NotImplementedException();
-        }
-
-        public void showTaskList()
-        {
-            Console.WriteLine('\t' + "showTaskList()" + '\n');
         }
 
         /// <summary>
@@ -142,7 +224,7 @@ namespace ToDoLy
         /// Trying to create an object Exercise
         /// </summary>
         /// <returns>An Exercise or null</returns>
-        private Exercise exercise()
+        private Exercise exerciseList()
         {
             Exercise item = null;
             bool walk = false;
@@ -184,7 +266,7 @@ namespace ToDoLy
         /// Trying to create an object BusTicket
         /// </summary>
         /// <returns>An BusTicket or null</returns>
-        private BusTicket busTicket()
+        private BusTicket busTicketList()
         {
             BusTicket item = null;
 

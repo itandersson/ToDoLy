@@ -17,12 +17,15 @@ namespace ToDoLy
         /// <param name="status">Status can be active or inactive</param>
         public ShoppingList(string shopName, string list, string taskTitle, DateTime dueDate, bool status)
         {
+            this.Id = 0;
             this.ShopName = shopName;
             this.List = list;
             base.TaskTitle = taskTitle;
             base.DueDate = dueDate;
             base.Status = status;
         }
+        
+        public override int Id { get; set; }
 
         public string ShopName { get; set; }
 
@@ -32,7 +35,8 @@ namespace ToDoLy
         {
             string timeStart = (base.DueDate).ToString("yyyy/MM/dd");
 
-            string outPut = this.ShopName + ", " + this.List + ", " + base.TaskTitle;
+            string outPut = this.Id + ", " + this.ShopName + ", " + this.List + ", " + base.TaskTitle +
+                ", " + timeStart + ", " + base.Status + ".";
 
             return outPut;
         }

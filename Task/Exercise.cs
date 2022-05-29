@@ -18,6 +18,7 @@ namespace ToDoLy
         /// <param name="status">Status can be active or inactive</param>
         public Exercise(bool walk, bool run, int distance, string taskTitle, DateTime dueDate, bool status)
         {
+            this.Id = 0;
             this.Walk = walk;
             this.Run = run;
             this.Distance = distance;
@@ -25,6 +26,8 @@ namespace ToDoLy
             base.DueDate = dueDate;
             base.Status = status;
         }
+
+        public override int Id { get; set; }
 
         public bool Walk { get; set; }
 
@@ -34,8 +37,10 @@ namespace ToDoLy
 
         public override string ToString()
         {
+            string timeStart = (base.DueDate).ToString("yyyy/MM/dd");
 
-            string outPut = "Testing";
+            string outPut = this.Id + ", " + this.Walk + ", " + this.Run + ", " + this.Distance + ", " + base.TaskTitle +
+                ", " + timeStart + ", " + base.Status + ".";
 
             return outPut;
         }

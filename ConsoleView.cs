@@ -54,7 +54,7 @@ namespace ToDoLy
                         else { Console.WriteLine('\t' + "The task could not be added because an error occurred. Please try again" + '\n'); }
                         continue;
                     case 3:
-                        //editTask();
+                        editTask();
                         continue;
                     case 4:
                         FileHelper file = new FileHelper(@"C:/", "Files");
@@ -70,7 +70,7 @@ namespace ToDoLy
         /// </summary>
         public void showTaskList()
         {
-
+            string sort = null;
             string showList = '\t' + "Show Task List (by date or project)" + '\n' +
                 "\t(1) By date\n" +
                 "\t(2) By project\n";
@@ -82,29 +82,154 @@ namespace ToDoLy
             switch (value)
             {
                 case 1:
-                    sortByDate();
+                    sort = "sortByDate";
                     break;
                 case 2:
-                    sortByProject();
+                    sort = "sortByProject";
                     break;
             }
 
-            //Print three tables
+            //Display the sorted lists to the user
+            printList(sort);
+        }
+
+        /// <summary>
+        /// Display the lists to the user
+        /// </summary>
+        /// <param name="sort">String must be set to either "sortByDate" or "sortByProject"</param>
+        /// <exception cref="Exception">Throws exeption if sort is not set</exception>
+        private void printList(string sort = null)
+        {
+            // 1. Must sort first
+            if (sort == "sortByDate") { sortByDate(); }
+            else if (sort == "sortByProject") { sortByProject(); }
+            else { throw new Exception("An internal error occurred: Sort must be assigned!"); }
+
+            List<Task> setId = new List<Task>();
+            setId.AddRange(tempShoppingList);
+            setId.AddRange(tempExerciseList);
+            setId.AddRange(tempBusTicketList);
+
+            int i = 1;
+            // 2. Assign Id to all tasks
+            foreach (Task task in setId)
+            {
+                task.Id = i;
+                ++i;
+            }
+
+            //Display three tables
             ConsoleTableBuilder
                 .From(tempShoppingList)
                 .WithTitle("Shopping list ")
-                .ExportAndWriteLine();
+                .ExportAndWriteLine(TableAligntment.Center);
 
             ConsoleTableBuilder
-                .From(tempExerciseList)
+                .From (tempExerciseList)
                 .WithTitle("Exercice ")
-                .ExportAndWriteLine();
+                .ExportAndWriteLine(TableAligntment.Center);
 
             ConsoleTableBuilder
                 .From(tempBusTicketList)
                 .WithTitle("Buy bus ticket ")
-                .ExportAndWriteLine();
+                .ExportAndWriteLine(TableAligntment.Center);
+        }
 
+        /// <summary>
+        /// Asks the user to enter which task to create
+        /// </summary>
+        /// <returns>An Task or null</returns>
+        public Task addNewTask()
+        {
+            Task item = null;
+            string newTask = '\t' + "What task do you want to create?" + '\n' +
+                "\t(1) Shopping list\n" +
+                "\t(2) Exercise list\n" +
+                "\t(3) Buy bus ticket list\n";
+
+            Console.WriteLine(newTask);
+            Console.Write("\tPick an option: ");
+            int value = int.Parse(Console.ReadLine());
+
+            switch (value)
+            {
+                case 1:
+                    item = shoppingList();
+                    break;
+                case 2:
+                    item = exerciseList();
+                    break;
+                case 3:
+                    item = busTicketList();
+                    break;
+            }
+
+            return item;
+        }
+
+        /// <summary>
+        /// User edit one Task
+        /// </summary>
+        /// <exception cref="Exception">Throws exeption if type does not exist</exception>
+        public void editTask()
+        {
+            Task tempItem = null;
+
+            //Display the sorted lists to the user
+            printList("sortByDate");
+
+            //The sorted list
+            List<Task> sortedList = new List<Task>();
+            sortedList.AddRange(tempShoppingList);
+            sortedList.AddRange(tempExerciseList);
+            sortedList.AddRange(tempBusTicketList);
+
+            //Ask the user for Id
+            string editTask = '\t' + "What task do you want to Edit? (Select a Id)";
+            Console.WriteLine(editTask);
+            Console.Write("\tPick an option: ");
+            int valueId = int.Parse(Console.ReadLine());
+
+            //The Task
+            Task selectedTask = sortedList[--valueId];
+            string type = selectedTask.GetType().ToString();
+            int index = list.IndexOf(selectedTask);
+
+            //Ask what the user wants to do with the task
+            Console.WriteLine(selectedTask.ToString());
+            string proceed = "The task with Id:" + selectedTask.Id + " has been selected\n" +
+                "How do you want to proceed?\n\n" +
+                "(1) Update task\n" +
+                "(2) Mark as done\n" +
+                "(3) Remove task\n";
+
+            Console.WriteLine(proceed);
+            Console.Write("Pick an option: ");
+            int value = int.Parse(Console.ReadLine());
+
+            string text = "";
+
+            switch (value)
+            {
+                case 1://Update task
+                    if (type == "ToDoLy.ShoppingList") { tempItem = shoppingList(); }
+                    else if (type == "ToDoLy.Exercise") { tempItem = exerciseList(); }
+                    else if (type == "ToDoLy.BusTicket") { tempItem = busTicketList(); }
+                    else { throw new Exception("An internal error occurred: Type does not exist!"); }
+                    list[index] = tempItem;
+                    text = "The task has been updated!";
+                    break;
+                case 2://Mark as done
+                    list[index].Status = false;
+                    text = "The task has been marked as done";
+                    break;
+                case 3://Remove task
+                    list.Remove(selectedTask);
+                    text = "The task has been removed";
+                    break;
+            }
+
+            Console.WriteLine( text ) ;
         }
 
         /// <summary>
@@ -141,43 +266,6 @@ namespace ToDoLy
                 else if (task is BusTicket) { tempBusTicketList.Add((BusTicket)task); }
                 else { throw new Exception("An unexpected error occurred"); }
             }
-        }
-
-        /// <summary>
-        /// Asks the user to enter which task to create
-        /// </summary>
-        /// <returns>An Task or null</returns>
-        public Task addNewTask()
-        {
-            Task item = null;
-            string newTask = '\t' + "What task do you want to create?" + '\n' +
-                "\t(1) Shopping list\n" +
-                "\t(2) Exercise list\n" +
-                "\t(3) Buy bus ticket list\n";
-
-            Console.WriteLine(newTask);
-            Console.Write("\tPick an option: ");
-            int value = int.Parse(Console.ReadLine());
-
-            switch (value)
-            {
-                case 1:
-                    item = shoppingList();
-                    break;
-                case 2:
-                    item = exerciseList();
-                    break;
-                case 3:
-                    item = busTicketList();
-                    break;
-            }
-
-            return item;
-        }
-
-        public void editTask()
-        {
-            throw new System.NotImplementedException();
         }
 
         public void save()

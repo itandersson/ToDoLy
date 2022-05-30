@@ -7,7 +7,7 @@ namespace ToDoLy
 {
     public class ConsoleView : IUser
     {
-        static private List<Task> list = new List<Task>();
+        static private List<Task> list = FileHelper.ReadJson(@"C:/Files/");
 
         List<ShoppingList> tempShoppingList = new List<ShoppingList>();
         List<Exercise> tempExerciseList = new List<Exercise>();
@@ -15,14 +15,15 @@ namespace ToDoLy
 
         internal void start()
         {
-            // Add task to the list.
-            list.Add(new ShoppingList("ICA Kvantum", "Mjölk, Smör, bröd.", "Inköp", DateTime.Parse("2022/04/2"), true) );
-            list.Add(new Exercise(false, true, 1000, "Motion", DateTime.Parse("2022/06/01"), true ) );
-            list.Add(new BusTicket(1199, "Malmö C", "Köp buss biljett", DateTime.Parse("2022/03/20"), true));
-            list.Add(new ShoppingList("Supermarket", "Frukost.", "Inköp", DateTime.Parse("2022/08/2"), false));
-            list.Add(new ShoppingList("Coop", "Panta flaskor", "Panta", DateTime.Parse("2022/01/2"), true));
-            list.Add(new Exercise(false, true, 1000, "Motion", DateTime.Parse("2022/06/03"), true));
-            list.Add(new Exercise(false, true, 1000, "Motion", DateTime.Parse("2022/06/06"), true));
+            // Note: For testing only
+            //private List<Task> list = new List<Task>();
+            //list.Add(new ShoppingList("ICA Kvantum", "Mjölk, Smör, bröd.", "Inköp", DateTime.Parse("2022/04/2"), true) );
+            //list.Add(new Exercise(false, true, 1000, "Motion", DateTime.Parse("2022/06/01"), true ) );
+            //list.Add(new BusTicket(1199, "Malmö C", "Köp buss biljett", DateTime.Parse("2022/03/20"), true));
+            //list.Add(new ShoppingList("Supermarket", "Frukost.", "Inköp", DateTime.Parse("2022/08/2"), false));
+            //list.Add(new ShoppingList("Coop", "Panta flaskor", "Panta", DateTime.Parse("2022/01/2"), true));
+            //list.Add(new Exercise(false, true, 1000, "Motion", DateTime.Parse("2022/06/03"), true));
+            //list.Add(new Exercise(false, true, 1000, "Motion", DateTime.Parse("2022/06/06"), true));
 
             Boolean run = true;
 

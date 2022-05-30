@@ -23,19 +23,45 @@ namespace ToDoLy
             this.filePath = path + dir + "/";
         }
 
-        public void ReadJson()
+        /// <summary>
+        /// Reads json from three files and returns a list
+        /// </summary>
+        /// <param name="p_filePath">The path</param>
+        /// <returns>List of task</returns>
+        public static List<Task> ReadJson(string p_filePath)
         {
-            //string readText = File.ReadAllText(filePath + fileName);  // Read the contents of the file
-            //Console.WriteLine(readText);
-            throw new System.NotImplementedException();
+            List<Task> tasks = new List<Task>();
+
+            //Get files to deserialize
+            string[] shoppingList = File.ReadAllLines(p_filePath + "ShoppingList.json");
+            string[] exercise = File.ReadAllLines(p_filePath + "Exercise.json");
+            string[] busTicket = File.ReadAllLines(p_filePath + "BusTicket.json");
+
+            //Deserialize shoppingList
+            foreach (string item in shoppingList)
+            {
+                tasks.Add((Task)JsonSerializer.Deserialize<ShoppingList>(item));
+            }
+
+            //Deserialize exercise
+            foreach (string item in exercise)
+            {
+                tasks.Add((Task)JsonSerializer.Deserialize<Exercise>(item));
+            }
+
+            //Deserialize busTicket
+            foreach (string item in busTicket)
+            {
+                tasks.Add((Task)JsonSerializer.Deserialize<BusTicket>(item));
+            }
+
+            return tasks;
         }
 
         /// <summary>
-        /// Saves a list to the hard disk.
-        /// Type of <Task> can contain three different types of objects,
-        /// Therefore, three files are saved on the hard disk in this function.
+        /// Writes json to three files on the hard disk.
         /// </summary>
-        /// <param name="list">The list</param>
+        /// <param name="list">The list to write from</param>
         public void toJsonFile(List<Task> list)
         {
             string fileName = "";

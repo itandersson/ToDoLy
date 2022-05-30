@@ -19,7 +19,7 @@ namespace ToDoLy
             list.Add(new ShoppingList("ICA Kvantum", "Mjölk, Smör, bröd.", "Inköp", DateTime.Parse("2022/04/2"), true) );
             list.Add(new Exercise(false, true, 1000, "Motion", DateTime.Parse("2022/06/01"), true ) );
             list.Add(new BusTicket(1199, "Malmö C", "Köp buss biljett", DateTime.Parse("2022/03/20"), true));
-            list.Add(new ShoppingList("Supermarket", "Frukost.", "Inköp", DateTime.Parse("2022/08/2"), true));
+            list.Add(new ShoppingList("Supermarket", "Frukost.", "Inköp", DateTime.Parse("2022/08/2"), false));
             list.Add(new ShoppingList("Coop", "Panta flaskor", "Panta", DateTime.Parse("2022/01/2"), true));
             list.Add(new Exercise(false, true, 1000, "Motion", DateTime.Parse("2022/06/03"), true));
             list.Add(new Exercise(false, true, 1000, "Motion", DateTime.Parse("2022/06/06"), true));
@@ -29,7 +29,7 @@ namespace ToDoLy
             while (run)
             {
                 int x = list.Count;
-                int y = 0;
+                int y = list.Where(x => !x.Status).Count(); //For false check
 
                 string welcome = "Welcome to ToDoLy\n" +
                 "You have " + x + " tasks todo and " + y + " tasks are done!\n\n" +

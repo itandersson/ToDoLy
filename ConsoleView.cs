@@ -43,25 +43,28 @@ namespace ToDoLy
                 Console.Write("Pick an option: ");
                 int value = int.Parse(Console.ReadLine());
 
-                switch (value)
-                {
-                    case 1:
-                        showTaskList();
-                        continue;
-                    case 2:
-                        Task item = addNewTask();
-                        //If true add item
-                        if (item != null) { list.Add(item); Console.WriteLine('\t' + "Thank you, a new task was successfully added." + '\n'); }
-                        continue;
-                    case 3:
-                        editTask();
-                        continue;
-                    case 4:
-                        FileHelper file = new FileHelper(@"C:/", "Files");
-                        file.toJsonFile(list);
-                        run = false;
-                        break;
+                try {
+                    switch (value)
+                    {
+                        case 1:
+                            showTaskList();
+                            continue;
+                        case 2:
+                            Task item = addNewTask();
+                            //If true add item
+                            if (item != null) { list.Add(item); Console.WriteLine('\t' + "Thank you, a new task was successfully added." + '\n'); }
+                            continue;
+                        case 3:
+                            editTask();
+                            continue;
+                        case 4:
+                            FileHelper file = new FileHelper(@"C:/", "Files");
+                            file.toJsonFile(list);
+                            run = false;
+                            break;
+                    }
                 }
+                catch (Exception e) { Console.WriteLine('\t' + "\nError: " + e.Message + "\n"); }
             }
         }
 
@@ -312,7 +315,7 @@ namespace ToDoLy
             catch (Exception e)
             {
                 item = null;
-                Console.WriteLine('\t' + "Error: " + e.Message);
+                Console.WriteLine('\t' + "\nError: " + e.Message + "\n");
             }
 
             return item;
@@ -354,7 +357,7 @@ namespace ToDoLy
             catch (Exception e)
             {
                 item = null;
-                Console.WriteLine('\t' + "Error: " + e.Message);
+                Console.WriteLine('\t' + "\nError: " + e.Message + "\n");
             }
 
             return item;
@@ -389,7 +392,7 @@ namespace ToDoLy
             catch (Exception e)
             {
                 item = null;
-                Console.WriteLine('\t' + "Error: " + e.Message);
+                Console.WriteLine('\t' + "\nError: " + e.Message + "\n");
             }
 
             return item;

@@ -33,7 +33,7 @@ namespace ToDoLy
                 int y = list.Where(x => !x.Status).Count(); //For false check
 
                 string welcome = "Welcome to ToDoLy\n" +
-                "You have " + x + " tasks todo and " + y + " tasks are done!\n\n" +
+                "You have " + x + " tasks todo and " + y + " tasks are done!\n" +
                 "(1) Show Task List (by date or project)\n" +
                 "(2) Add New Task\n" +
                 "(3) Edit Task (update, mark as done, remove)\n" +
@@ -50,9 +50,8 @@ namespace ToDoLy
                         continue;
                     case 2:
                         Task item = addNewTask();
-                        //If no error add item
+                        //If true add item
                         if (item != null) { list.Add(item); Console.WriteLine('\t' + "Thank you, a new task was successfully added." + '\n'); }
-                        else { Console.WriteLine('\t' + "The task could not be added because an error occurred. Please try again" + '\n'); }
                         continue;
                     case 3:
                         editTask();
@@ -74,11 +73,13 @@ namespace ToDoLy
             string sort = null;
             string showList = '\t' + "Show Task List (by date or project)" + '\n' +
                 "\t(1) By date\n" +
-                "\t(2) By project\n";
+                "\t(2) By project\n" +
+                "\t(3) Go back\n";
 
             Console.WriteLine(showList);
             Console.Write("\tPick an option: ");
             int value = int.Parse(Console.ReadLine());
+            Console.Write("\n");
 
             switch (value)
             {
@@ -88,10 +89,12 @@ namespace ToDoLy
                 case 2:
                     sort = "sortByProject";
                     break;
+                case 3:
+                    break;
             }
 
-            //Display the sorted lists to the user
-            printList(sort);
+            //If string is set, Display the sorted lists to the user
+            if (sort != null) { printList(sort); }
         }
 
         /// <summary>
@@ -146,7 +149,8 @@ namespace ToDoLy
             string newTask = '\t' + "What task do you want to create?" + '\n' +
                 "\t(1) Shopping list\n" +
                 "\t(2) Exercise list\n" +
-                "\t(3) Buy bus ticket list\n";
+                "\t(3) Buy bus ticket list\n" + 
+                "\t(4) Go back\n";
 
             Console.WriteLine(newTask);
             Console.Write("\tPick an option: ");
@@ -162,6 +166,8 @@ namespace ToDoLy
                     break;
                 case 3:
                     item = busTicketList();
+                    break;
+                case 4:
                     break;
             }
 
@@ -197,12 +203,13 @@ namespace ToDoLy
             int index = list.IndexOf(selectedTask);
 
             //Ask what the user wants to do with the task
-            Console.WriteLine(selectedTask.ToString());
-            string proceed = "The task with Id:" + selectedTask.Id + " has been selected\n" +
-                "How do you want to proceed?\n\n" +
-                "(1) Update task\n" +
-                "(2) Mark as done\n" +
-                "(3) Remove task\n";
+            Console.WriteLine("\t" + selectedTask.ToString());
+            string proceed = "\tThe task with Id:" + selectedTask.Id + " has been selected\n" +
+                "\tHow do you want to proceed?\n" +
+                "\t(1) Update task\n" +
+                "\t(2) Mark as done\n" +
+                "\t(3) Remove task\n" +
+                "\t(4) Go back\n";
 
             Console.WriteLine(proceed);
             Console.Write("Pick an option: ");
@@ -227,6 +234,8 @@ namespace ToDoLy
                 case 3://Remove task
                     list.Remove(selectedTask);
                     text = "The task has been removed";
+                    break;
+                case 4:
                     break;
             }
 
